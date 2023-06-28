@@ -17,12 +17,13 @@ import { createCustomElement } from '@angular/elements';
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [{
     provide: RouteReuseStrategy,
     useClass: MicroFrontendRouteReuseStrategy
-  }],
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

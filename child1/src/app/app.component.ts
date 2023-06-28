@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LibTestTinSpaService } from 'lib-test-tin-spa';
 import { fromEvent } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { Observable} from 'rxjs';
 
 @Component({
   selector: 'child1-root',
@@ -9,16 +10,21 @@ import { fromEvent } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   count: number=0;
-  constructor(private commonPKService: LibTestTinSpaService) { }
+  data$: Observable<any>;
+  constructor(private store: Store<{ data: any }>) {
+    this.data$ = store.select('data');
+   }
   ngOnInit(): void {
     fromEvent(window, 'eventCustom').subscribe((event: any) => {
       console.log(event);
       this.count++;
     });
-    this.commonPKService.currentState.subscribe(state => {
-      debugger;
-      this.count = state;
-    });
+    // this.data$.subscribe(res => {
+    //   console.log(res);
+    // })
+    // this.commonPKService.currentState.subscribe(state => {
+    //   this.count = state;
+    // });
   }
   title = 'child1';
 }
